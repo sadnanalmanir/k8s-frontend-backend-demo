@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-app
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: react-app
+        tier: frontend
+    spec:
+      containers:
+        - name: react-app-image
+          image: react-frontend:dev
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+      restartPolicy: Always
