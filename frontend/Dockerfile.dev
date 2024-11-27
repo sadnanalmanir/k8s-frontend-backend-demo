@@ -1,0 +1,22 @@
+# specify the node base image
+FROM node:20
+
+# Set working directory
+WORKDIR /app
+
+# copy only the libraries requiring installation
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
+# Continuous integration allows installing only from lock file for better reproducability
+RUN npm ci
+
+# Install serve package specialized for a single-page application
+RUN npm i -g serve
+
+# copy the source directory
+COPY ./ /app/
+
+RUN npm run build
+
+CMD [ "serve", "-s", "dist" ]
