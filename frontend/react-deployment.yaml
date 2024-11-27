@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: react-app-image
-          image: react-frontend:dev
-          imagePullPolicy: Never
+          image: docker.io/sadnanalmanir/react-frontend:dev
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
           resources:
